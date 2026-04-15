@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Pocketwave — Your city's front page</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f7f5f0;
+    --ink: #111010;
+    --muted: #6b6860;
+    --accent: #1a4fd6;
+    --accent-light: #e8eefb;
+    --wave: #d0e4f7;
+    --border: rgba(0,0,0,0.1);
+    --card: #ffffff;
+    --city1: #ffecd2;
+    --city2: #ddf4e8;
+    --city3: #ede8fb;
+    --city4: #fde8e8;
+    --city5: #e8f4fd;
+    --city6: #fdf5e8;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 2rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .logo-icon {
+    width: 34px; height: 34px;
+    background: var(--accent);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .logo-icon svg { width: 20px; height: 20px; }
+
+  .logo-text {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--ink);
+    letter-spacing: -0.3px;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 14px;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .nav-links a:hover { color: var(--ink); }
+
+  .nav-cta {
+    background: var(--ink);
+    color: #fff !important;
+    padding: 8px 20px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+
+  .nav-cta:hover { opacity: 0.85; }
+
+  /* HERO */
+  .hero {
+    padding: 5rem 2rem 3rem;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--accent-light);
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 14px;
+    border-radius: 999px;
+    margin-bottom: 2rem;
+    letter-spacing: 0.02em;
+  }
+
+  .hero-badge span {
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+  }
+
+  h1 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    font-size: 18px;
+    color: var(--muted);
+    line-height: 1.65;
+    max-width: 520px;
+    margin: 0 auto 2.5rem;
+    font-weight: 300;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--ink);
+    color: #fff;
+    padding: 13px 28px;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: opacity 0.15s;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .btn-primary:hover { opacity: 0.85; }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--ink);
+    padding: 12px 24px;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 400;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    transition: background 0.15s;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .btn-secondary:hover { background: #ebe9e3; }
+
+  /* WAVE DIVIDER */
+  .wave-divider {
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    margin-top: 2rem;
+  }
+
+  /* CITIES SCROLL */
+  .cities-section {
+    padding: 3rem 0 2rem;
+    overflow: hidden;
+  }
+
+  .cities-label {
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .cities-track {
+    display: flex;
+    gap: 10px;
+    animation: scroll 25s linear infinite;
+    width: max-content;
+    padding: 0 1rem;
+  }
+
+  .cities-track:hover { animation-play-state: paused; }
+
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .city-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: default;
+    border: 1px solid rgba(0,0,0,0.07);
+  }
+
+  .city-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+  /* FEATURES */
+  .features {
+    padding: 4rem 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    letter-spacing: -1px;
+    margin-bottom: 3rem;
+    line-height: 1.15;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+  }
+
+  .feature-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.75rem;
+    transition: transform 0.2s;
+  }
+
+  .feature-card:hover { transform: translateY(-2px); }
+
+  .feature-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1rem;
+  }
+
+  .feature-icon svg { width: 20px; height: 20px; }
+
+  .feature-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .feature-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* MOCK FEED */
+  .feed-section {
+    padding: 4rem 2rem;
+    background: var(--card);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .feed-inner {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .feed-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+  }
+
+  .feed-city {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .feed-city-dot {
+    width: 10px; height: 10px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(0.85); }
+  }
+
+  .feed-sort {
+    display: flex;
+    gap: 4px;
+  }
+
+  .sort-btn {
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .sort-btn.active {
+    background: var(--ink);
+    color: #fff;
+    border-color: var(--ink);
+  }
+
+  .post-item {
+    display: flex;
+    gap: 12px;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+
+  .post-item:last-child { border-bottom: none; }
+
+  .vote-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    min-width: 32px;
+  }
+
+  .vote-btn {
+    width: 24px; height: 24px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.1s;
+  }
+
+  .vote-btn:hover { background: var(--accent-light); }
+
+  .vote-count {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .post-content { flex: 1; }
+
+  .post-meta {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  .post-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.35;
+    margin-bottom: 6px;
+    color: var(--ink);
+  }
+
+  .post-footer {
+    display: flex;
+    gap: 12px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .post-footer span { cursor: pointer; }
+  .post-footer span:hover { color: var(--ink); }
+
+  /* STATS */
+  .stats {
+    padding: 4rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 2rem;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: -2px;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-label {
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  /* CTA */
+  .cta-section {
+    padding: 5rem 2rem;
+    text-align: center;
+    background: var(--ink);
+    color: #fff;
+  }
+
+  .cta-section h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+  }
+
+  .cta-section p {
+    font-size: 16px;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+
+  .btn-white {
+    background: #fff;
+    color: var(--ink);
+    padding: 13px 32px;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: opacity 0.15s;
+    display: inline-block;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .btn-white:hover { opacity: 0.88; }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  footer p { font-size: 13px; color: var(--muted); }
+
+  footer a { color: var(--muted); text-decoration: none; font-size: 13px; }
+  footer a:hover { color: var(--ink); }
+
+  .footer-links { display: flex; gap: 1.5rem; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-up {
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards;
+  }
+
+  .fade-up:nth-child(1) { animation-delay: 0.1s; }
+  .fade-up:nth-child(2) { animation-delay: 0.2s; }
+  .fade-up:nth-child(3) { animation-delay: 0.3s; }
+  .fade-up:nth-child(4) { animation-delay: 0.4s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">
+    <div class="logo-icon">
+      <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2 12 Q5 8 8 12 Q11 16 14 12 Q17 8 19 12" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M2 8 Q5 4 8 8 Q11 12 14 8 Q17 4 19 8" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.55"/>
+      </svg>
+    </div>
+    <span class="logo-text">pocketwave</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#feed">How it works</a></li>
+    <li><a href="#" class="nav-cta">Join waitlist</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge fade-up"><span></span> Now in early access</div>
+  <h1 class="fade-up">Your city's<br><em>front page.</em></h1>
+  <p class="hero-sub fade-up">Hyperlocal communities for every city, town, and neighbourhood. Post, vote, and discuss what matters where you live.</p>
+  <div class="hero-actions fade-up">
+    <a href="#" class="btn-primary">Join your city →</a>
+    <a href="#feed" class="btn-secondary">See how it works</a>
+  </div>
+</section>
+
+<!-- WAVE -->
+<div class="wave-divider">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:50px;">
+    <path d="M0 30 Q180 10 360 30 Q540 50 720 30 Q900 10 1080 30 Q1260 50 1440 30 L1440 60 L0 60 Z" fill="#dceefb" opacity="0.6"/>
+    <path d="M0 40 Q180 20 360 40 Q540 60 720 40 Q900 20 1080 40 Q1260 60 1440 40 L1440 60 L0 60 Z" fill="#dceefb" opacity="0.35"/>
+  </svg>
+</div>
+
+<!-- CITIES MARQUEE -->
+<section class="cities-section">
+  <p class="cities-label">Communities already on pocketwave</p>
+  <div style="overflow:hidden;">
+    <div class="cities-track">
+      <div class="city-pill" style="background:var(--city1)"><div class="city-dot" style="background:#e8912a"></div>Chennai</div>
+      <div class="city-pill" style="background:var(--city2)"><div class="city-dot" style="background:#1d9e75"></div>Bangalore</div>
+      <div class="city-pill" style="background:var(--city3)"><div class="city-dot" style="background:#7f77dd"></div>Mumbai</div>
+      <div class="city-pill" style="background:var(--city4)"><div class="city-dot" style="background:#d85a30"></div>Delhi</div>
+      <div class="city-pill" style="background:var(--city5)"><div class="city-dot" style="background:#378add"></div>Hyderabad</div>
+      <div class="city-pill" style="background:var(--city6)"><div class="city-dot" style="background:#ba7517"></div>Pune</div>
+      <div class="city-pill" style="background:var(--city1)"><div class="city-dot" style="background:#993556"></div>Kolkata</div>
+      <div class="city-pill" style="background:var(--city2)"><div class="city-dot" style="background:#3b6d11"></div>Coimbatore</div>
+      <div class="city-pill" style="background:var(--city3)"><div class="city-dot" style="background:#534ab7"></div>Kochi</div>
+      <div class="city-pill" style="background:var(--city4)"><div class="city-dot" style="background:#993c1d"></div>Tiruppur</div>
+      <div class="city-pill" style="background:var(--city5)"><div class="city-dot" style="background:#185fa5"></div>Ahmedabad</div>
+      <div class="city-pill" style="background:var(--city6)"><div class="city-dot" style="background:#854f0b"></div>Jaipur</div>
+      <!-- duplicate for seamless loop -->
+      <div class="city-pill" style="background:var(--city1)"><div class="city-dot" style="background:#e8912a"></div>Chennai</div>
+      <div class="city-pill" style="background:var(--city2)"><div class="city-dot" style="background:#1d9e75"></div>Bangalore</div>
+      <div class="city-pill" style="background:var(--city3)"><div class="city-dot" style="background:#7f77dd"></div>Mumbai</div>
+      <div class="city-pill" style="background:var(--city4)"><div class="city-dot" style="background:#d85a30"></div>Delhi</div>
+      <div class="city-pill" style="background:var(--city5)"><div class="city-dot" style="background:#378add"></div>Hyderabad</div>
+      <div class="city-pill" style="background:var(--city6)"><div class="city-dot" style="background:#ba7517"></div>Pune</div>
+      <div class="city-pill" style="background:var(--city1)"><div class="city-dot" style="background:#993556"></div>Kolkata</div>
+      <div class="city-pill" style="background:var(--city2)"><div class="city-dot" style="background:#3b6d11"></div>Coimbatore</div>
+      <div class="city-pill" style="background:var(--city3)"><div class="city-dot" style="background:#534ab7"></div>Kochi</div>
+      <div class="city-pill" style="background:var(--city4)"><div class="city-dot" style="background:#993c1d"></div>Tiruppur</div>
+      <div class="city-pill" style="background:var(--city5)"><div class="city-dot" style="background:#185fa5"></div>Ahmedabad</div>
+      <div class="city-pill" style="background:var(--city6)"><div class="city-dot" style="background:#854f0b"></div>Jaipur</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <p class="section-label">Why pocketwave</p>
+  <h2 class="section-title">Built for where<br>you actually live.</h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#e8eefb">
+        <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="10" cy="8" r="4" stroke="#1a4fd6" stroke-width="1.5"/>
+          <path d="M3 18c0-3.866 3.134-7 7-7s7 3.134 7 7" stroke="#1a4fd6" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <p class="feature-title">Your city, your feed</p>
+      <p class="feature-desc">Pick your city on signup. Every post, discussion, and vote is filtered to your local community by default.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#ddf4e8">
+        <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2 10l8-8 8 8" stroke="#1d9e75" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M5 7v9a1 1 0 001 1h3v-4h2v4h3a1 1 0 001-1V7" stroke="#1d9e75" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <p class="feature-title">Upvote what matters</p>
+      <p class="feature-desc">Community-driven ranking. The best local stories rise to the top. Downvote the noise, upvote the signal.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#ede8fb">
+        <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17 10c0 3.866-3.134 7-7 7a6.97 6.97 0 01-3.5-.937L3 17l.937-3.5A6.97 6.97 0 013 10c0-3.866 3.134-7 7-7s7 3.134 7 7z" stroke="#7f77dd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <p class="feature-title">Nested discussions</p>
+      <p class="feature-desc">Threaded comments keep conversations organised. Reply directly to any comment and build proper discussion threads.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#fde8e8">
+        <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 5h14M3 10h14M3 15h8" stroke="#d85a30" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <p class="feature-title">Hot, new, top sorting</p>
+      <p class="feature-desc">Switch between trending posts, the freshest content, or all-time top posts in your city — all in one tap.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#e8f4fd">
+        <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10 2l2.4 5.6L18 8.6l-4 4 .9 5.4L10 15.4 5.1 18l.9-5.4-4-4 5.6-.9L10 2z" stroke="#378add" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <p class="feature-title">Karma system</p>
+      <p class="feature-desc">Earn karma from upvotes on your posts and comments. High-karma members build trust in their local community.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#fdf5e8">
+        <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="10" cy="10" r="7" stroke="#ba7517" stroke-width="1.5"/>
+          <path d="M10 7v3l2 2" stroke="#ba7517" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <p class="feature-title">Always real-time</p>
+      <p class="feature-desc">Vote counts and new comments update live. No page refresh needed — the feed stays fresh automatically.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MOCK FEED -->
+<section class="feed-section" id="feed">
+  <div class="feed-inner">
+    <p class="section-label" style="text-align:center;margin-bottom:0.5rem">Live preview</p>
+    <h2 class="section-title" style="text-align:center;margin-bottom:2rem;font-size:clamp(1.5rem,3vw,2rem)">What it looks like inside</h2>
+
+    <div class="feed-header">
+      <div class="feed-city">
+        <div class="feed-city-dot"></div>
+        Chennai
+      </div>
+      <div class="feed-sort">
+        <button class="sort-btn active" onclick="setSort(this)">Hot</button>
+        <button class="sort-btn" onclick="setSort(this)">New</button>
+        <button class="sort-btn" onclick="setSort(this)">Top</button>
+      </div>
+    </div>
+
+    <div class="post-item">
+      <div class="vote-col">
+        <button class="vote-btn" onclick="vote(this, 1)">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 2L10 8H2L6 2Z" fill="currentColor" opacity="0.5"/></svg>
+        </button>
+        <span class="vote-count">284</span>
+        <button class="vote-btn" onclick="vote(this, -1)">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 10L10 4H2L6 10Z" fill="currentColor" opacity="0.3"/></svg>
+        </button>
+      </div>
+      <div class="post-content">
+        <p class="post-meta">posted by u/marina_k · 3h ago · Chennai</p>
+        <p class="post-title">The new metro extension to Sholinganallur finally opens this weekend — here's everything you need to know</p>
+        <div class="post-footer">
+          <span>💬 142 comments</span>
+          <span>⤴ Share</span>
+          <span>🔖 Save</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="post-item">
+      <div class="vote-col">
+        <button class="vote-btn" onclick="vote(this, 1)">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 2L10 8H2L6 2Z" fill="currentColor" opacity="0.5"/></svg>
+        </button>
+        <span class="vote-count">91</span>
+        <button class="vote-btn" onclick="vote(this, -1)">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 10L10 4H2L6 10Z" fill="currentColor" opacity="0.3"/></svg>
+        </button>
+      </div>
+      <div class="post-content">
+        <p class="post-meta">posted by u/gk_raj · 7h ago · Chennai</p>
+        <p class="post-title">Best dosa spots near T. Nagar? Looking for authentic breakfast, not the tourist-facing ones</p>
+        <div class="post-footer">
+          <span>💬 67 comments</span>
+          <span>⤴ Share</span>
+          <span>🔖 Save</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="post-item">
+      <div class="vote-col">
+        <button class="vote-btn" onclick="vote(this, 1)">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 2L10 8H2L6 2Z" fill="currentColor" opacity="0.5"/></svg>
+        </button>
+        <span class="vote-count">57</span>
+        <button class="vote-btn" onclick="vote(this, -1)">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 10L10 4H2L6 10Z" fill="currentColor" opacity="0.3"/></svg>
+        </button>
+      </div>
+      <div class="post-content">
+        <p class="post-meta">posted by u/deepa_v · 11h ago · Chennai</p>
+        <p class="post-title">Spotted: massive pothole on Anna Salai near Gemini flyover — anyone know if it's been reported to GCC?</p>
+        <div class="post-footer">
+          <span>💬 38 comments</span>
+          <span>⤴ Share</span>
+          <span>🔖 Save</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats">
+  <div>
+    <div class="stat-num">50+</div>
+    <div class="stat-label">Cities at launch</div>
+  </div>
+  <div>
+    <div class="stat-num">Free</div>
+    <div class="stat-label">Always, forever</div>
+  </div>
+  <div>
+    <div class="stat-num">100%</div>
+    <div class="stat-label">Community-driven</div>
+  </div>
+  <div>
+    <div class="stat-num">0</div>
+    <div class="stat-label">Ads, ever</div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Your city is waiting.</h2>
+  <p>Join thousands of locals already on pocketwave.</p>
+  <a href="#" class="btn-white">Claim your spot →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="logo" style="text-decoration:none">
+    <div class="logo-icon">
+      <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2 12 Q5 8 8 12 Q11 16 14 12 Q17 8 19 12" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M2 8 Q5 4 8 8 Q11 12 14 8 Q17 4 19 8" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.55"/>
+      </svg>
+    </div>
+    <span class="logo-text">pocketwave</span>
+  </a>
+  <p>© 2026 pocketwave.app · Built with love</p>
+  <div class="footer-links">
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="#">Contact</a>
+  </div>
+</footer>
+
+<script>
+function setSort(btn) {
+  document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function vote(btn, dir) {
+  const col = btn.closest('.vote-col');
+  const countEl = col.querySelector('.vote-count');
+  let count = parseInt(countEl.textContent);
+  countEl.textContent = count + dir;
+}
+</script>
+</body>
+</html>
