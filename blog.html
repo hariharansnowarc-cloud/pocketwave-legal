@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Pocketwave — Stories worth reading</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #fafaf8;
+  --surface: #ffffff;
+  --ink: #0f0f0e;
+  --ink2: #2a2a28;
+  --muted: #888880;
+  --subtle: #c8c8c0;
+  --border: rgba(0,0,0,0.08);
+  --accent: #1a56db;
+  --accent-bg: #eff4ff;
+  --gold: #d4a017;
+  --gold-bg: #fffbeb;
+  --green: #0a7d55;
+  --green-bg: #ecfdf5;
+  --tag-bg: #f0f0ec;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  height: 60px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.nav-logo-mark {
+  width: 30px; height: 30px;
+  background: var(--ink);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.nav-logo-mark svg { width: 16px; height: 16px; }
+
+.nav-logo-text {
+  font-family: 'Fraunces', serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.3px;
+}
+
+.nav-center {
+  display: flex;
+  gap: 0;
+  background: var(--tag-bg);
+  border-radius: 999px;
+  padding: 3px;
+}
+
+.nav-tab {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  padding: 5px 16px;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: all 0.15s;
+}
+
+.nav-tab:hover { color: var(--ink); }
+.nav-tab.active { background: var(--surface); color: var(--ink); box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+
+.nav-right { display: flex; align-items: center; gap: 10px; }
+
+.btn-ghost {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink2);
+  padding: 7px 16px;
+  border-radius: 999px;
+  text-decoration: none;
+  border: 1px solid var(--border);
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.15s;
+  font-family: 'Inter', sans-serif;
+}
+.btn-ghost:hover { background: var(--tag-bg); }
+
+.btn-solid {
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
+  padding: 7px 18px;
+  border-radius: 999px;
+  text-decoration: none;
+  background: var(--ink);
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  font-family: 'Inter', sans-serif;
+}
+.btn-solid:hover { opacity: 0.82; }
+
+/* ── HERO ── */
+.hero {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 5rem 2rem 3rem;
+  text-align: center;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--accent);
+  background: var(--accent-bg);
+  padding: 4px 14px;
+  border-radius: 999px;
+  margin-bottom: 1.75rem;
+  letter-spacing: 0.02em;
+}
+
+.hero h1 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -2px;
+  color: var(--ink);
+  margin-bottom: 1.25rem;
+}
+
+.hero h1 em { font-style: italic; color: var(--muted); }
+
+.hero-sub {
+  font-size: 17px;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 480px;
+  margin: 0 auto 2.5rem;
+  font-weight: 300;
+}
+
+.hero-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem; }
+
+.btn-lg {
+  font-size: 15px;
+  font-weight: 500;
+  padding: 12px 28px;
+  border-radius: 999px;
+  text-decoration: none;
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  transition: opacity 0.15s;
+}
+.btn-dark { background: var(--ink); color: #fff; }
+.btn-dark:hover { opacity: 0.82; }
+.btn-outline { background: transparent; color: var(--ink); border: 1.5px solid var(--border); }
+.btn-outline:hover { background: var(--tag-bg); }
+
+.hero-social-proof {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.avatar-stack { display: flex; }
+.avatar {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  border: 2px solid var(--surface);
+  margin-left: -8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px;
+  font-weight: 600;
+  color: #fff;
+}
+.avatar:first-child { margin-left: 0; }
+
+/* ── TAGS BAR ── */
+.tags-bar {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 0.75rem 2rem;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  background: var(--surface);
+}
+.tags-bar::-webkit-scrollbar { display: none; }
+
+.tag-chip {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  padding: 4px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.15s;
+  background: transparent;
+  font-family: 'Inter', sans-serif;
+}
+.tag-chip:hover { color: var(--ink); border-color: var(--ink); }
+.tag-chip.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+/* ── MAIN LAYOUT ── */
+.main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 3rem;
+}
+@media (max-width: 800px) { .main { grid-template-columns: 1fr; } }
+
+/* ── FEATURED STORY ── */
+.featured {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--surface);
+  margin-bottom: 2rem;
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+}
+.featured:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
+
+.featured-img {
+  width: 100%;
+  height: 220px;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.featured-img-pattern {
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle at 20% 50%, rgba(26,86,219,0.3) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 20%, rgba(212,160,23,0.2) 0%, transparent 40%);
+}
+
+.featured-img-label {
+  position: relative;
+  font-family: 'Fraunces', serif;
+  font-size: 3rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.15);
+  letter-spacing: -2px;
+  font-style: italic;
+}
+
+.featured-body { padding: 1.5rem; }
+
+.featured-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 0.75rem;
+}
+
+.badge-featured {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: var(--gold-bg);
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+.badge-free {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--green); background: var(--green-bg); padding: 3px 10px; border-radius: 999px;
+}
+
+.badge-paid {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--gold); background: var(--gold-bg); padding: 3px 10px; border-radius: 999px;
+}
+
+.story-read-time { font-size: 12px; color: var(--muted); }
+
+.featured-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  line-height: 1.25;
+  color: var(--ink);
+  margin-bottom: 0.6rem;
+}
+
+.featured-excerpt {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+  font-weight: 300;
+}
+
+.story-author {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.author-avatar {
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 600; color: #fff;
+  flex-shrink: 0;
+}
+
+.author-name { font-size: 13px; font-weight: 500; color: var(--ink2); }
+.author-date { font-size: 12px; color: var(--muted); }
+
+/* ── STORY CARD ── */
+.story-card {
+  display: flex;
+  gap: 16px;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.story-card:hover { opacity: 0.75; }
+.story-card:last-child { border-bottom: none; }
+
+.story-card-body { flex: 1; }
+.story-card-title {
+  font-family: 'Fraunces', serif;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  line-height: 1.3;
+  color: var(--ink);
+  margin-bottom: 5px;
+}
+.story-card-excerpt { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 8px; font-weight: 300; }
+.story-card-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+.story-thumb {
+  width: 80px; height: 80px;
+  border-radius: 10px;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Fraunces', serif;
+  font-size: 1.5rem;
+  font-style: italic;
+  font-weight: 300;
+  color: rgba(255,255,255,0.5);
+}
+
+/* ── LOCKED CARD ── */
+.story-locked {
+  position: relative;
+  overflow: hidden;
+}
+.story-locked .story-card-excerpt {
+  -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+}
+.lock-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--gold);
+  background: var(--gold-bg);
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+/* ── SIDEBAR ── */
+.sidebar {}
+
+.sidebar-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.sidebar-title {
+  font-family: 'Fraunces', serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+/* SUBSCRIPTION CARD */
+.sub-card {
+  background: var(--ink);
+  border-radius: 16px;
+  padding: 1.5rem;
+  color: #fff;
+  margin-bottom: 1.5rem;
+}
+
+.sub-card-title {
+  font-family: 'Fraunces', serif;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.sub-card-sub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 1.25rem;
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+.sub-plans { display: flex; gap: 8px; margin-bottom: 1.25rem; }
+
+.sub-plan {
+  flex: 1;
+  border: 1.5px solid rgba(255,255,255,0.15);
+  border-radius: 12px;
+  padding: 0.85rem 0.75rem;
+  cursor: pointer;
+  transition: border-color 0.15s;
+  text-align: center;
+}
+.sub-plan:hover { border-color: rgba(255,255,255,0.4); }
+.sub-plan.selected { border-color: #fff; }
+
+.plan-price {
+  font-family: 'Fraunces', serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: -0.5px;
+}
+.plan-period { font-size: 10px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+.plan-save {
+  font-size: 10px; font-weight: 600;
+  color: var(--gold);
+  background: rgba(212,160,23,0.15);
+  padding: 2px 6px; border-radius: 4px;
+  margin-top: 4px; display: inline-block;
+}
+
+.sub-perks { list-style: none; margin-bottom: 1.25rem; }
+.sub-perks li {
+  font-size: 12px;
+  color: rgba(255,255,255,0.7);
+  padding: 4px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sub-perks li::before { content: '✓'; color: #4ade80; font-weight: 600; font-size: 12px; }
+
+.btn-sub {
+  display: block;
+  width: 100%;
+  padding: 11px;
+  background: #fff;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  transition: opacity 0.15s;
+  font-family: 'Inter', sans-serif;
+}
+.btn-sub:hover { opacity: 0.88; }
+
+/* TOP AUTHORS */
+.author-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+}
+.author-row:last-child { border-bottom: none; }
+.author-row:hover .author-row-name { color: var(--accent); }
+
+.author-row-info { flex: 1; }
+.author-row-name { font-size: 14px; font-weight: 500; color: var(--ink); }
+.author-row-bio { font-size: 12px; color: var(--muted); }
+
+.follow-btn {
+  font-size: 11px; font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: transparent;
+  cursor: pointer;
+  color: var(--ink2);
+  font-family: 'Inter', sans-serif;
+  transition: all 0.15s;
+}
+.follow-btn:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
+.follow-btn.following { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+/* ── WRITE BANNER ── */
+.write-banner {
+  background: var(--ink);
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.write-banner h2 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: -1px;
+  margin-bottom: 0.75rem;
+}
+
+.write-banner p {
+  font-size: 15px;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 2rem;
+  font-weight: 300;
+}
+
+.write-perks {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.write-perk {
+  text-align: center;
+}
+
+.write-perk-num {
+  font-family: 'Fraunces', serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: -1px;
+}
+
+.write-perk-label { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+
+/* ── HOW IT WORKS ── */
+.how-section {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.section-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+.section-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 600;
+  letter-spacing: -1px;
+  color: var(--ink);
+  margin-bottom: 3rem;
+}
+
+.how-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+}
+
+.how-step {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.how-step-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+}
+
+.how-step-num { font-family: 'Fraunces', serif; font-size: 13px; font-weight: 600; color: var(--muted); }
+.how-step-title { font-family: 'Fraunces', serif; font-size: 17px; font-weight: 600; color: var(--ink); }
+.how-step-desc { font-size: 13px; color: var(--muted); line-height: 1.65; font-weight: 300; }
+
+/* ── FAQ ── */
+.faq-section {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 3rem 2rem 4rem;
+  border-top: 1px solid var(--border);
+}
+
+.faq-item { border-bottom: 1px solid var(--border); }
+.faq-q {
+  width: 100%; text-align: left; padding: 1rem 0;
+  background: transparent; border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  font-size: 15px; font-weight: 500; color: var(--ink);
+  font-family: 'Inter', sans-serif;
+}
+.faq-icon { font-size: 20px; color: var(--muted); transition: transform 0.2s; flex-shrink: 0; }
+.faq-item.open .faq-icon { transform: rotate(45deg); }
+.faq-a { display: none; padding: 0 0 1rem; font-size: 14px; color: var(--muted); line-height: 1.75; font-weight: 300; }
+.faq-item.open .faq-a { display: block; }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 2rem;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+  background: var(--surface);
+}
+.footer-brand { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+.footer-brand-text { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 600; color: var(--ink); }
+footer p { font-size: 12px; color: var(--muted); }
+.footer-links { display: flex; gap: 1.5rem; }
+.footer-links a { font-size: 12px; color: var(--muted); text-decoration: none; }
+.footer-links a:hover { color: var(--ink); }
+
+/* ANIM */
+@keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+.fade-up { opacity:0; animation: fadeUp 0.55s ease forwards; }
+.d1 { animation-delay: 0.1s; } .d2 { animation-delay: 0.2s; } .d3 { animation-delay: 0.35s; } .d4 { animation-delay: 0.5s; }
+
+.modal-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: var(--surface);
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 400px;
+  width: 100%;
+}
+.modal-title { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 600; margin-bottom: 0.5rem; color: var(--ink); }
+.modal-sub { font-size: 14px; color: var(--muted); margin-bottom: 1.5rem; font-weight: 300; }
+.modal-input {
+  width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: 10px;
+  font-size: 14px; color: var(--ink); background: var(--bg); margin-bottom: 10px; outline: none;
+  font-family: 'Inter', sans-serif;
+}
+.modal-input:focus { border-color: var(--accent); }
+.modal-close {
+  position: absolute; top: 1rem; right: 1rem;
+  background: none; border: none; font-size: 20px; cursor: pointer; color: var(--muted);
+}
+.modal-divider { text-align: center; font-size: 12px; color: var(--muted); margin: 1rem 0; }
+.modal-footer { text-align: center; font-size: 13px; color: var(--muted); margin-top: 1rem; }
+.modal-footer a { color: var(--accent); cursor: pointer; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-mark">
+      <svg viewBox="0 0 16 16" fill="none">
+        <path d="M1 9 Q4 5 7 9 Q10 13 13 9 Q15 6 16 9" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        <path d="M1 6 Q4 2 7 6 Q10 10 13 6 Q15 3 16 6" stroke="white" stroke-width="1.2" fill="none" stroke-linecap="round" opacity="0.5"/>
+      </svg>
+    </div>
+    <span class="nav-logo-text">Pocketwave</span>
+  </a>
+
+  <div class="nav-center">
+    <a href="#" class="nav-tab active">Stories</a>
+    <a href="#" class="nav-tab">Authors</a>
+    <a href="#" class="nav-tab">Topics</a>
+  </div>
+
+  <div class="nav-right">
+    <button class="btn-ghost" onclick="openModal('login')">Sign in</button>
+    <button class="btn-solid" onclick="openModal('signup')">Start writing</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow fade-up d1">✦ Now open to writers</div>
+  <h1 class="fade-up d2">Stories that<br>stay with <em>you.</em></h1>
+  <p class="hero-sub fade-up d3">Original fiction, essays, and ideas from independent writers. Read free stories or unlock everything with a membership.</p>
+  <div class="hero-actions fade-up d4">
+    <a href="#stories" class="btn-lg btn-dark">Start reading</a>
+    <a href="#" class="btn-lg btn-outline" onclick="openModal('signup'); return false;">Write on Pocketwave</a>
+  </div>
+  <div class="hero-social-proof fade-up d4">
+    <div class="avatar-stack">
+      <div class="avatar" style="background:#6366f1">P</div>
+      <div class="avatar" style="background:#ec4899">M</div>
+      <div class="avatar" style="background:#f59e0b">R</div>
+      <div class="avatar" style="background:#10b981">K</div>
+      <div class="avatar" style="background:#3b82f6">A</div>
+    </div>
+    <span>1,200+ readers · 48 writers</span>
+  </div>
+</section>
+
+<!-- TAGS BAR -->
+<div class="tags-bar">
+  <button class="tag-chip active" onclick="filterTag(this)">All</button>
+  <button class="tag-chip" onclick="filterTag(this)">Fiction</button>
+  <button class="tag-chip" onclick="filterTag(this)">Essays</button>
+  <button class="tag-chip" onclick="filterTag(this)">Poetry</button>
+  <button class="tag-chip" onclick="filterTag(this)">Thriller</button>
+  <button class="tag-chip" onclick="filterTag(this)">Romance</button>
+  <button class="tag-chip" onclick="filterTag(this)">Sci-Fi</button>
+  <button class="tag-chip" onclick="filterTag(this)">Mystery</button>
+  <button class="tag-chip" onclick="filterTag(this)">Personal</button>
+</div>
+
+<!-- MAIN -->
+<div class="main" id="stories">
+  <div>
+
+    <!-- FEATURED -->
+    <div class="featured">
+      <div class="featured-img">
+        <div class="featured-img-pattern"></div>
+        <span class="featured-img-label">Episode I</span>
+      </div>
+      <div class="featured-body">
+        <div class="featured-meta">
+          <span class="badge-featured">✦ Featured</span>
+          <span class="badge-free">Free</span>
+          <span class="story-read-time">8 min read</span>
+        </div>
+        <h2 class="featured-title">The man who arrived twice</h2>
+        <p class="featured-excerpt">He stepped off the 7:02 train exactly as he had done yesterday — except yesterday hadn't happened yet. The station smelled of diesel and damp concrete, familiar in the way only impossible things can be...</p>
+        <div class="story-author">
+          <div class="author-avatar" style="background:#6366f1">AR</div>
+          <div>
+            <div class="author-name">Arun Raj</div>
+            <div class="author-date">Apr 15, 2026</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STORY LIST -->
+    <div class="story-card">
+      <div class="story-card-body">
+        <div class="story-card-meta" style="margin-bottom:6px">
+          <span class="badge-free">Free</span>
+          <span class="story-read-time">5 min read</span>
+        </div>
+        <h3 class="story-card-title">The city that forgets its streets</h3>
+        <p class="story-card-excerpt">Every morning the roads rearrange themselves. The locals don't notice. She does — and she's the only one keeping a map.</p>
+        <div class="story-card-meta">
+          <div class="author-avatar" style="width:20px;height:20px;font-size:9px;background:#ec4899">MV</div>
+          <span style="font-size:12px;color:var(--muted)">Meena V. · Apr 14</span>
+          <span style="font-size:11px;padding:2px 8px;background:var(--tag-bg);border-radius:999px;color:var(--muted)">Surreal</span>
+        </div>
+      </div>
+      <div class="story-thumb" style="background:linear-gradient(135deg,#667eea,#764ba2)">∞</div>
+    </div>
+
+    <div class="story-card story-locked">
+      <div class="story-card-body">
+        <div class="story-card-meta" style="margin-bottom:6px">
+          <span class="lock-badge">🔒 Members only</span>
+          <span class="story-read-time">12 min read</span>
+        </div>
+        <h3 class="story-card-title">Postmarked: never</h3>
+        <p class="story-card-excerpt">The envelope had no stamp, no return address — only her name written in her own handwriting. Inside, a letter dated six months from now. She reads the first line and her hands start shaking. By the third paragraph she understands what she has to do...</p>
+        <div class="story-card-meta">
+          <div class="author-avatar" style="width:20px;height:20px;font-size:9px;background:#f59e0b">KR</div>
+          <span style="font-size:12px;color:var(--muted)">Kavitha R. · Apr 13</span>
+          <span style="font-size:11px;padding:2px 8px;background:var(--tag-bg);border-radius:999px;color:var(--muted)">Sci-Fi</span>
+        </div>
+      </div>
+      <div class="story-thumb" style="background:linear-gradient(135deg,#f093fb,#f5576c)">✉</div>
+    </div>
+
+    <div class="story-card">
+      <div class="story-card-body">
+        <div class="story-card-meta" style="margin-bottom:6px">
+          <span class="badge-free">Free</span>
+          <span class="story-read-time">4 min read</span>
+        </div>
+        <h3 class="story-card-title">Last light on the Vellore road</h3>
+        <p class="story-card-excerpt">A short story about a bus that only runs at dusk — and the passengers who ride it once and never come back.</p>
+        <div class="story-card-meta">
+          <div class="author-avatar" style="width:20px;height:20px;font-size:9px;background:#10b981">SN</div>
+          <span style="font-size:12px;color:var(--muted)">Suresh N. · Apr 12</span>
+          <span style="font-size:11px;padding:2px 8px;background:var(--tag-bg);border-radius:999px;color:var(--muted)">Fiction</span>
+        </div>
+      </div>
+      <div class="story-thumb" style="background:linear-gradient(135deg,#43e97b,#38f9d7)">→</div>
+    </div>
+
+    <div class="story-card story-locked">
+      <div class="story-card-body">
+        <div class="story-card-meta" style="margin-bottom:6px">
+          <span class="lock-badge">🔒 Members only</span>
+          <span class="story-read-time">9 min read</span>
+        </div>
+        <h3 class="story-card-title">The weight of borrowed names</h3>
+        <p class="story-card-excerpt">She had been living under her sister's name for three years. It fit like a borrowed coat — warm enough but never quite right...</p>
+        <div class="story-card-meta">
+          <div class="author-avatar" style="width:20px;height:20px;font-size:9px;background:#3b82f6">PA</div>
+          <span style="font-size:12px;color:var(--muted)">Priya A. · Apr 11</span>
+          <span style="font-size:11px;padding:2px 8px;background:var(--tag-bg);border-radius:999px;color:var(--muted)">Drama</span>
+        </div>
+      </div>
+      <div class="story-thumb" style="background:linear-gradient(135deg,#4facfe,#00f2fe)">◈</div>
+    </div>
+
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <!-- SUBSCRIPTION -->
+    <div class="sub-card">
+      <div class="sub-card-title">Unlock every story.</div>
+      <div class="sub-card-sub">Get unlimited access to all member stories, early episodes, and the full archive.</div>
+
+      <div class="sub-plans" id="plans">
+        <div class="sub-plan" onclick="selectPlan(this, 'monthly')">
+          <div class="plan-price">₹99</div>
+          <div class="plan-period">per month</div>
+        </div>
+        <div class="sub-plan selected" onclick="selectPlan(this, 'yearly')">
+          <div class="plan-price">₹799</div>
+          <div class="plan-period">per year</div>
+          <div class="plan-save">Save 33%</div>
+        </div>
+      </div>
+
+      <ul class="sub-perks">
+        <li>Unlimited member-only stories</li>
+        <li>New episodes before anyone else</li>
+        <li>Full archive access</li>
+        <li>No ads, ever</li>
+        <li>Cancel anytime</li>
+      </ul>
+
+      <button class="btn-sub" onclick="openModal('subscribe')">Get full access →</button>
+    </div>
+
+    <!-- TOP AUTHORS -->
+    <div class="sidebar-card">
+      <div class="sidebar-title">Top writers</div>
+
+      <div class="author-row">
+        <div class="author-avatar" style="background:#6366f1">AR</div>
+        <div class="author-row-info">
+          <div class="author-row-name">Arun Raj</div>
+          <div class="author-row-bio">Sci-fi · Time travel</div>
+        </div>
+        <button class="follow-btn" onclick="toggleFollow(this)">Follow</button>
+      </div>
+      <div class="author-row">
+        <div class="author-avatar" style="background:#ec4899">MV</div>
+        <div class="author-row-info">
+          <div class="author-row-name">Meena V.</div>
+          <div class="author-row-bio">Surreal · Urban fiction</div>
+        </div>
+        <button class="follow-btn" onclick="toggleFollow(this)">Follow</button>
+      </div>
+      <div class="author-row">
+        <div class="author-avatar" style="background:#f59e0b">KR</div>
+        <div class="author-row-info">
+          <div class="author-row-name">Kavitha R.</div>
+          <div class="author-row-bio">Mystery · Letters</div>
+        </div>
+        <button class="follow-btn" onclick="toggleFollow(this)">Follow</button>
+      </div>
+      <div class="author-row">
+        <div class="author-avatar" style="background:#10b981">SN</div>
+        <div class="author-row-info">
+          <div class="author-row-name">Suresh N.</div>
+          <div class="author-row-bio">Folk tales · Horror</div>
+        </div>
+        <button class="follow-btn" onclick="toggleFollow(this)">Follow</button>
+      </div>
+    </div>
+
+    <!-- TRENDING TAGS -->
+    <div class="sidebar-card">
+      <div class="sidebar-title">Trending topics</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        <button class="tag-chip">Fiction</button>
+        <button class="tag-chip">Time travel</button>
+        <button class="tag-chip">Surreal</button>
+        <button class="tag-chip">Tamil</button>
+        <button class="tag-chip">Horror</button>
+        <button class="tag-chip">Romance</button>
+        <button class="tag-chip">Essays</button>
+        <button class="tag-chip">Short story</button>
+      </div>
+    </div>
+
+  </aside>
+</div>
+
+<!-- WRITE BANNER -->
+<div class="write-banner">
+  <h2>Your stories deserve<br>an audience.</h2>
+  <p>Join 48 writers already publishing on Pocketwave. Set your own prices, keep 90% of revenue.</p>
+  <div class="write-perks">
+    <div class="write-perk">
+      <div class="write-perk-num">90%</div>
+      <div class="write-perk-label">Revenue to you</div>
+    </div>
+    <div class="write-perk">
+      <div class="write-perk-num">Free</div>
+      <div class="write-perk-label">To publish</div>
+    </div>
+    <div class="write-perk">
+      <div class="write-perk-num">1,200+</div>
+      <div class="write-perk-label">Active readers</div>
+    </div>
+  </div>
+  <button class="btn-sub" style="max-width:220px;margin:0 auto;display:block;" onclick="openModal('signup')">Start writing free →</button>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="how-section">
+  <p class="section-label">How it works</p>
+  <h2 class="section-title">Read. Write. Earn.</h2>
+  <div class="how-grid">
+    <div class="how-step">
+      <div class="how-step-icon" style="background:#eff4ff">📖</div>
+      <div class="how-step-num">01</div>
+      <div class="how-step-title">Browse free stories</div>
+      <div class="how-step-desc">Hundreds of free stories available without an account. No paywall, no signup required to start reading.</div>
+    </div>
+    <div class="how-step">
+      <div class="how-step-icon" style="background:#fffbeb">🔓</div>
+      <div class="how-step-num">02</div>
+      <div class="how-step-title">Subscribe to unlock all</div>
+      <div class="how-step-desc">Members get unlimited access to locked stories, early episodes, and the full archive for ₹99/month.</div>
+    </div>
+    <div class="how-step">
+      <div class="how-step-icon" style="background:#ecfdf5">✍️</div>
+      <div class="how-step-num">03</div>
+      <div class="how-step-title">Write & publish</div>
+      <div class="how-step-desc">Any writer can join and publish. Mark stories free or paid. Set your own price. We handle the rest.</div>
+    </div>
+    <div class="how-step">
+      <div class="how-step-icon" style="background:#fdf4ff">💸</div>
+      <div class="how-step-num">04</div>
+      <div class="how-step-title">Earn from your readers</div>
+      <div class="how-step-desc">Writers keep 90% of revenue from subscriber reads. Monthly payouts, full transparency on your dashboard.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <p class="section-label">FAQ</p>
+  <h2 class="section-title" style="font-size:1.8rem;margin-bottom:1.5rem;">Common questions</h2>
+
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">Can I read for free? <span class="faq-icon">+</span></button>
+    <div class="faq-a">Yes — many stories on Pocketwave are completely free. Writers choose which stories are free and which require a membership. No signup needed to read free content.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">How much does membership cost? <span class="faq-icon">+</span></button>
+    <div class="faq-a">₹99/month or ₹799/year (saves 33%). Members unlock all paid stories, early episodes, and the full archive. Cancel anytime — no questions asked.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">How do writers get paid? <span class="faq-icon">+</span></button>
+    <div class="faq-a">Writers earn 90% of revenue generated from their stories. We calculate earnings based on subscriber read-time and pay out monthly via UPI or bank transfer.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">Can any writer join? <span class="faq-icon">+</span></button>
+    <div class="faq-a">Yes — writing on Pocketwave is open to everyone. Create an account, set up your writer profile, and start publishing. There's no application process or minimum follower count.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">What kind of stories can I publish? <span class="faq-icon">+</span></button>
+    <div class="faq-a">Fiction, essays, poetry, serialised stories, personal writing — anything original. We support all genres as long as it follows our community guidelines.</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <div class="nav-logo-mark">
+      <svg viewBox="0 0 16 16" fill="none">
+        <path d="M1 9 Q4 5 7 9 Q10 13 13 9 Q15 6 16 9" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        <path d="M1 6 Q4 2 7 6 Q10 10 13 6 Q15 3 16 6" stroke="white" stroke-width="1.2" fill="none" stroke-linecap="round" opacity="0.5"/>
+      </svg>
+    </div>
+    <span class="footer-brand-text">Pocketwave</span>
+  </div>
+  <p>© 2026 pocketwave.app · Stories worth reading</p>
+  <div class="footer-links">
+    <a href="#">For writers</a>
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="#">Contact</a>
+  </div>
+</footer>
+
+<!-- LOGIN / SIGNUP MODAL -->
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal" style="position:relative">
+    <button class="modal-close" onclick="document.getElementById('modal').classList.remove('open')">✕</button>
+    <div id="modal-login">
+      <div class="modal-title">Welcome back</div>
+      <div class="modal-sub">Sign in to your Pocketwave account.</div>
+      <input class="modal-input" type="email" placeholder="Email address"/>
+      <input class="modal-input" type="password" placeholder="Password"/>
+      <button class="btn-solid" style="width:100%;padding:11px;border-radius:10px;font-size:14px;">Sign in</button>
+      <div class="modal-footer">No account? <a onclick="switchModal('signup')">Create one free →</a></div>
+    </div>
+    <div id="modal-signup" style="display:none">
+      <div class="modal-title">Start writing</div>
+      <div class="modal-sub">Create your free Pocketwave account.</div>
+      <input class="modal-input" type="text" placeholder="Your name"/>
+      <input class="modal-input" type="email" placeholder="Email address"/>
+      <input class="modal-input" type="password" placeholder="Password"/>
+      <button class="btn-solid" style="width:100%;padding:11px;border-radius:10px;font-size:14px;">Create account</button>
+      <div class="modal-footer">Already have an account? <a onclick="switchModal('login')">Sign in →</a></div>
+    </div>
+    <div id="modal-subscribe" style="display:none">
+      <div class="modal-title">Get full access</div>
+      <div class="modal-sub">Unlock all member stories for ₹99/month.</div>
+      <input class="modal-input" type="email" placeholder="Email address"/>
+      <input class="modal-input" type="text" placeholder="Card number"/>
+      <div style="display:flex;gap:8px">
+        <input class="modal-input" type="text" placeholder="MM/YY" style="margin-bottom:0"/>
+        <input class="modal-input" type="text" placeholder="CVV" style="margin-bottom:0"/>
+      </div>
+      <button class="btn-solid" style="width:100%;padding:11px;border-radius:10px;font-size:14px;margin-top:10px;">Subscribe → ₹99/mo</button>
+      <div class="modal-footer" style="margin-top:0.5rem">Cancel anytime · Secure checkout</div>
+    </div>
+  </div>
+</div>
+
+<script>
+function filterTag(btn) {
+  document.querySelectorAll('.tag-chip').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function selectPlan(el, plan) {
+  document.querySelectorAll('.sub-plan').forEach(p => p.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function toggleFollow(btn) {
+  btn.classList.toggle('following');
+  btn.textContent = btn.classList.contains('following') ? 'Following' : 'Follow';
+}
+
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!wasOpen) item.classList.add('open');
+}
+
+function openModal(type) {
+  document.getElementById('modal').classList.add('open');
+  switchModal(type);
+}
+
+function switchModal(type) {
+  ['login','signup','subscribe'].forEach(t => {
+    document.getElementById('modal-'+t).style.display = t === type ? 'block' : 'none';
+  });
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modal'))
+    document.getElementById('modal').classList.remove('open');
+}
+</script>
+</body>
+</html>
